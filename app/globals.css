@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+ * Bol Chaal design tokens.
+ * Tailwind v4 turns these into utilities, e.g. --color-brand -> bg-brand /
+ * text-brand, --font-urdu -> font-urdu.
+ */
+@theme {
+  --color-bg: #f5faf6;
+  --color-surface: #ffffff;
+  --color-ink: #142019;
+  --color-muted: #5b6b60;
+
+  --color-brand: #16a34a;
+  --color-brand-dark: #15803d;
+  --color-brand-light: #22c55e;
+
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
+  --color-heart: #ef4444;
+
+  --font-sans:
+    ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", "Quicksand",
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
+
+  --radius-xl2: 1.25rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle brand backdrop used on auth + landing screens. */
+.bg-brand-radial {
+  background:
+    radial-gradient(60rem 60rem at 110% -10%, rgba(34, 197, 94, 0.16), transparent 55%),
+    radial-gradient(50rem 50rem at -10% 0%, rgba(245, 158, 11, 0.12), transparent 50%),
+    var(--color-bg);
+}
+
+/* Urdu Nastaʿlīq runs right-to-left. */
+.font-urdu {
+  font-family: var(--font-urdu);
+  direction: rtl;
+}
