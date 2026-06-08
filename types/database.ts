@@ -34,6 +34,47 @@ export type ProfileInsert = {
 
 export type ProfileUpdate = Partial<ProfileInsert>;
 
+export type VocabProgress = {
+  id: string;
+  user_id: string;
+  word_roman: string;
+  word_script: string | null;
+  meaning_en: string | null;
+  strength: number;
+  ease_factor: number;
+  interval_days: number;
+  next_review_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type VocabProgressInsert = {
+  user_id: string;
+  word_roman: string;
+  word_script?: string | null;
+  meaning_en?: string | null;
+  strength?: number;
+  ease_factor?: number;
+  interval_days?: number;
+  next_review_at?: string;
+};
+
+export type ConversationLog = {
+  id: string;
+  user_id: string;
+  level_id: number;
+  transcript: unknown;
+  score: number;
+  created_at: string;
+};
+
+export type ConversationLogInsert = {
+  user_id: string;
+  level_id: number;
+  transcript: unknown;
+  score?: number;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -41,6 +82,18 @@ export type Database = {
         Row: Profile;
         Insert: ProfileInsert;
         Update: ProfileUpdate;
+        Relationships: [];
+      };
+      vocab_progress: {
+        Row: VocabProgress;
+        Insert: VocabProgressInsert;
+        Update: Partial<VocabProgressInsert>;
+        Relationships: [];
+      };
+      conversation_logs: {
+        Row: ConversationLog;
+        Insert: ConversationLogInsert;
+        Update: Partial<ConversationLogInsert>;
         Relationships: [];
       };
     };

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { BrandMark } from "@/components/BrandMark";
@@ -89,14 +90,12 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div className="border-t border-black/5 bg-zinc-50 px-6 py-4">
-              <button
-                type="button"
-                disabled
-                className="w-full cursor-not-allowed rounded-xl bg-brand/40 px-4 py-3 text-base font-bold text-white"
-                title="Arrives in Phase 1"
+              <Link
+                href={`/learn/${level?.id ?? 1}`}
+                className="block w-full rounded-xl bg-brand px-4 py-3 text-center text-base font-bold text-white shadow-sm transition hover:bg-brand-dark"
               >
-                Start conversation — coming in Phase 1
-              </button>
+                Start conversation →
+              </Link>
             </div>
           </div>
         </section>

@@ -47,6 +47,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="flex min-h-full flex-col">
+        {/* Urdu Nastaʿlīq font (loaded at runtime; falls back to serif offline). */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* App Router root layout — this link applies app-wide (the lint rule
+            targets the pages router). */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;700&display=swap"
+        />
         {children}
         <ServiceWorkerRegister />
       </body>
