@@ -48,6 +48,24 @@ python -m brightstars publish-due <month> --live
 
 `<month>` is `YYYY-MM`, or `this` / `next`.
 
+## Preview dashboard (recommended)
+
+Prefer a visual workflow? Launch the **Content Studio** — a local web app to
+preview posts, approve them with a click, and see analytics:
+
+```bash
+python -m brightstars serve          # then open http://127.0.0.1:8000
+```
+
+- **📊 Dashboard** — KPIs, posts by status/platform/pillar, posting cadence, and a
+  performance section (live follower counts when Meta is connected; clearly-labeled
+  *sample* engagement data until then, so it's useful before launch).
+- **📱 Preview** — every post rendered as a realistic Facebook / Instagram / LinkedIn
+  card, with **Approve / Skip** buttons and the consent note shown.
+- **🗓️ Calendar** — a month grid showing what posts on which day, color-coded by platform.
+
+First run with no content? The dashboard offers a one-click "Create sample month."
+
 ## What gets produced
 
 For each month, `content/<month>/`:
@@ -71,6 +89,8 @@ src/brightstars/           # the engine
   generator.py             #   Claude content generation (structured output)
   schedule.py              #   date/pillar scheduling
   publish.py + publishers/ #   Meta Graph API (FB/IG) + LinkedIn
+  analytics.py             #   dashboard metrics
+  web/                     #   Flask dashboard (server + static/ frontend)
   cli.py                   #   the commands above
 docs/                      # CHILD_SAFETY_POLICY, CONTENT_STRATEGY, SETUP
 .github/workflows/         # generate (monthly) + publish (daily)

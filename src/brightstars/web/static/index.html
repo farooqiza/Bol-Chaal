@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bright Stars · Content Studio</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🌟</span>
+      <div>
+        <div class="brand-name">Bright Stars</div>
+        <div class="brand-sub">Content Studio</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <label class="month-pick">
+        Month
+        <select id="monthSelect"></select>
+      </label>
+      <div class="conns" id="conns" title="Which integrations are connected"></div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="dashboard">📊 Dashboard</button>
+    <button class="tab" data-tab="preview">📱 Preview</button>
+    <button class="tab" data-tab="calendar">🗓️ Calendar</button>
+  </nav>
+
+  <main id="main">
+    <!-- Empty state -->
+    <section id="empty" class="panel empty hidden">
+      <div class="empty-card">
+        <div class="empty-emoji">🌱</div>
+        <h2>No content yet</h2>
+        <p>Create a month of posts to preview. Try a free offline sample, or generate
+           real AI content (needs your Claude API key).</p>
+        <div class="empty-actions">
+          <button class="btn primary" id="emptySample">Create sample month</button>
+          <button class="btn ghost" id="emptyGenerate">Generate with AI</button>
+        </div>
+        <p class="hint">Or from a terminal: <code>python -m brightstars sample next</code></p>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="panel"></section>
+
+    <!-- Preview -->
+    <section id="preview" class="panel hidden">
+      <div class="filterbar">
+        <div class="filters">
+          <select id="fPlatform"><option value="">All platforms</option>
+            <option value="facebook">Facebook</option>
+            <option value="instagram">Instagram</option>
+            <option value="linkedin">LinkedIn</option></select>
+          <select id="fStatus"><option value="">All statuses</option>
+            <option value="draft">Draft</option>
+            <option value="approved">Approved</option>
+            <option value="published">Published</option>
+            <option value="skipped">Skipped</option></select>
+          <span id="previewCount" class="muted"></span>
+        </div>
+        <button class="btn primary" id="approveAll">✓ Approve all drafts</button>
+      </div>
+      <div id="cards" class="cards"></div>
+    </section>
+
+    <!-- Calendar -->
+    <section id="calendar" class="panel hidden">
+      <div id="calGrid" class="calgrid"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

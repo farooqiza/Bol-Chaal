@@ -124,6 +124,13 @@ def cmd_list(args) -> None:
         print(f"  {p.date}  {p.platform.value:9} {p.status.value:9} {p.pillar:18} {p.id}")
 
 
+def cmd_serve(args) -> None:
+    from .web.server import run  # lazy: only this command needs Flask
+
+    print(f"Bright Stars Content Studio → http://{args.host}:{args.port}   (Ctrl+C to stop)")
+    run(host=args.host, port=args.port, debug=args.debug)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="brightstars", description="Bright Stars organic social automation")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -160,6 +167,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("list", help="list posts and statuses")
     month_arg(p); p.set_defaults(func=cmd_list)
+
+    p = sub.add_parser("serve", help="launch the web dashboard (preview + analytics)")
+    p.add_argument("--host", default="127.0.0.1")
+    p.add_argument("--port", type=int, default=8000)
+    p.add_argument("--debug", action="store_true")
+    p.set_defaults(func=cmd_serve)
 
     return parser
 
