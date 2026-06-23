@@ -1,0 +1,79 @@
+name: Preview dashboard (GitHub Pages)
+
+# Publishes the read-only Content Studio preview to GitHub Pages so it can be
+# opened from any device via a link — no install, no server.
+#
+# One-time setup (repo owner): Settings → Pages → Source: "GitHub Actions".
+# The repo must be public for Pages on the free plan.
+on:
+  push:
+    branches:
+      - main
+      - claude/stoic-davinci-k6gy7l
+    paths:
+      - "config/**"
+      - "content/**"
+      - "src/brightstars/web/**"
+      - "src/brightstars/export.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Allow this workflow to publish a Pages deployment.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One in-progress deployment at a time; let it finish rather than cancelling.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build self-contained preview
+        env:
+          PYTHONPATH: src
+        run: |
+          set -euo pipefail
+          # If no calendars are committed yet, fall back to an offline demo so
+          # the page is never empty. Real content (when present) is used as-is
+          # and is never overwritten.
+          shopt -s nullglob
+          existing=(content/*/calendar.json)
+          if [ ${#existing[@]} -eq 0 ]; then
+            echo "No content found — generating an offline demo calendar."
+            python -m brightstars sample this
+            python -m brightstars sample next
+          else
+            echo "Found ${#existing[@]} committed calendar(s) — using those."
+          fi
+          mkdir -p _site
+          python -c "from brightstars.export import export; print('built', export(out='_site/index.html'))"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

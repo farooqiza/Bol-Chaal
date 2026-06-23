@@ -16,3 +16,5 @@ venv/
 # local generated artifacts that shouldn't be tracked
 content/**/drafts.local.*
 assets/generated/
+# Pages build output (regenerated in CI)
+_site/
