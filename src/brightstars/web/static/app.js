@@ -11,7 +11,21 @@ const esc = (s) => (s || "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const prettyPillar = (id) => id.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
+// When exported as a standalone file, data is embedded and there is no server.
+const STATIC = typeof window !== "undefined" ? window.__BRIGHTSTARS__ || null : null;
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+function staticGet(path) {
+  if (path === "/api/status") return STATIC.status;
+  if (path === "/api/months") return { months: STATIC.months, latest: STATIC.months[STATIC.months.length - 1] || null };
+  let m;
+  if ((m = path.match(/^\/api\/calendar\/([^/]+)$/))) return clone(STATIC.calendars[m[1]]);
+  if ((m = path.match(/^\/api\/analytics\/([^/]+)$/))) return STATIC.analytics[m[1]];
+  return {};
+}
+
 async function api(path, opts) {
+  if (STATIC) return staticGet(path);
   const r = await fetch(path, opts);
   if (!r.ok) {
     const j = await r.json().catch(() => ({}));
@@ -19,8 +33,15 @@ async function api(path, opts) {
   }
   return r.json();
 }
-const post = (path, body) =>
-  api(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+
+async function post(path, body) {
+  if (STATIC) {
+    toast("Read-only preview — run `python3 -m brightstars serve` to approve");
+    const m = path.match(/^\/api\/calendar\/([^/]+)\//);
+    return m ? { changed: 0, calendar: clone(STATIC.calendars[m[1]]) } : { ok: false };
+  }
+  return api(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+}
 
 function toast(msg) {
   const t = $("#toast");

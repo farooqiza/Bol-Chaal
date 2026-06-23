@@ -131,6 +131,15 @@ def cmd_serve(args) -> None:
     run(host=args.host, port=args.port, debug=args.debug)
 
 
+def cmd_export(args) -> None:
+    from .export import export
+
+    _, _, month = resolve_month(args.month)
+    out = export(month=month, out=args.out)
+    print(f"✓ wrote {out}")
+    print("  Open it in any browser — no server or install needed (read-only preview).")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="brightstars", description="Bright Stars organic social automation")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -173,6 +182,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--port", type=int, default=8000)
     p.add_argument("--debug", action="store_true")
     p.set_defaults(func=cmd_serve)
+
+    p = sub.add_parser("export", help="export a self-contained preview.html (no server needed)")
+    month_arg(p)
+    p.add_argument("--out", help="output path (default: content/<month>/preview.html)")
+    p.set_defaults(func=cmd_export)
 
     return parser
 
