@@ -1,0 +1,53 @@
+name: Publish content (daily)
+
+# Publishes the current month's APPROVED posts that are due today.
+# Only posts with status "approved" and a date <= today are published.
+on:
+  workflow_dispatch:
+    inputs:
+      month:
+        description: "Month to publish (YYYY-MM, 'this', or 'next')"
+        required: false
+        default: "this"
+  schedule:
+    # 14:00 UTC daily (~8am Mountain in summer). Adjust to taste.
+    - cron: "0 14 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Publish due posts
+        env:
+          PYTHONPATH: src
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          META_GRAPH_VERSION: ${{ vars.META_GRAPH_VERSION }}
+          LINKEDIN_ORG_URN: ${{ secrets.LINKEDIN_ORG_URN }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+        run: python -m brightstars publish-due "${{ github.event.inputs.month || 'this' }}" --live
+
+      - name: Record published status
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/
+          if git diff --cached --quiet; then
+            echo "No status changes to record."
+          else
+            git commit -m "content: record published posts [skip ci]"
+            git push
+          fi

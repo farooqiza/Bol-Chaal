@@ -1,0 +1,6 @@
+# Bright Stars organic social automation
+anthropic>=0.69        # Claude API (content generation)
+pydantic>=2.6          # structured-output schema + validation
+PyYAML>=6.0            # brand/config files
+requests>=2.31         # Meta Graph API + LinkedIn API calls
+python-dotenv>=1.0     # load secrets from .env in local dev

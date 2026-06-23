@@ -1,0 +1,169 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Bright Stars Child Care & Preschool — brand knowledge base
+# This file is the single source of truth the AI uses to write content.
+# Edit it as the business changes; everything downstream reads from here.
+# ─────────────────────────────────────────────────────────────────────────────
+
+business:
+  name: "Bright Stars Child Care & Preschool"
+  short_name: "Bright Stars"
+  website: "https://www.brightstars.us"
+  phone: "(303) 369-8880"
+  address: "1155 S Havana St #25, Aurora, CO 80012"
+  service_area: ["Aurora", "Denver East", "Centennial"]
+  hours: "Mon–Fri (call to confirm current hours)"   # TODO: confirm exact hours
+  founded_note: "A family-run center; some families have stayed 10+ years."
+
+# What makes Bright Stars worth choosing — the proof points content should lean on.
+differentiators:
+  - "Level 4 Colorado Shines rating (the 2nd-highest quality rating in the state)"
+  - "Accepts Colorado Universal Preschool (UPK) and the Denver Preschool Program (DPP)"
+  - "Handles Colorado Child Care Assistance Program (CCCAP) paperwork for families"
+  - "Nutritious, balanced meals provided through the CACFP food program"
+  - "Exceeds state requirements for child-to-teacher ratios and curriculum"
+  - "Structured kindergarten-readiness curriculum: language, math, science, social studies"
+  - "Before/after care with drop-off to Village East, Highline & Ponderosa elementary schools"
+  - "Warm, family feel — nurturing teachers who meet rigorous training requirements"
+
+programs:
+  - name: "Infant Care"
+    ages: "6 weeks – 12 months"
+  - name: "Toddler Program"
+    ages: "1 – 2 years"
+  - name: "Preschool"
+    ages: "3 – 4 years"
+  - name: "Pre-K / UPK"
+    ages: "4 – 5 years"
+  - name: "School-Age (before/after & summer)"
+    ages: "5 – 12 years"
+
+# The primary business goal the content funnel serves.
+goals:
+  primary: "Fill open enrollment slots across all age groups (tours + inquiries)."
+  secondary:
+    - "Recruit and retain qualified early-childhood teachers (LinkedIn + Facebook)."
+    - "Build trust and word-of-mouth referrals among Aurora-area parents."
+
+# ── Voice & tone ──────────────────────────────────────────────────────────────
+voice:
+  personality: "Warm, nurturing, trustworthy, knowledgeable, parent-to-parent."
+  do:
+    - "Sound like a caring teacher talking to a parent, not a billboard."
+    - "Lead with the child's/parent's benefit, then a gentle call to action."
+    - "Be encouraging and reassuring; parents are making an emotional decision."
+    - "Use simple, concrete language; short sentences; occasional warm emoji."
+    - "Localize: mention Aurora and nearby neighborhoods where natural."
+  dont:
+    - "No hype, no ALL CAPS shouting, no salesy clichés."
+    - "Never make medical, developmental, or guarantee-style claims."
+    - "Never imply a specific child is pictured or named."
+    - "Don't overuse emoji or hashtags — quality over quantity."
+  reading_level: "Friendly 6th–8th grade; welcoming to multilingual families."
+
+# ── THE #1 RULE: child safety & privacy — shapes every piece of content ───────
+child_safety:
+  rule: >
+    Bright Stars never publishes identifiable photos or names of enrolled children
+    without a signed photo-release on file, and never reveals information that could
+    expose a child's location or schedule. Some families have custody or safety
+    situations. When in doubt, leave the child out.
+  content_must:
+    - "Default to visuals WITHOUT children's faces: classrooms, materials, art (no faces), staff, illustrations, or stock imagery."
+    - "Only feature a real child's photo when a signed release is confirmed for THAT child."
+    - "Never tag, name, or describe an individual enrolled child."
+    - "Get written consent before featuring a staff member or a parent testimonial."
+  every_post_notes_field: "Each generated post includes a `notes` line flagging any consent/photo check needed before publishing."
+
+# ── Content pillars: the recurring themes the AI rotates through ───────────────
+pillars:
+  - id: parenting_tips
+    name: "Parenting & Early-Learning Tips"
+    purpose: "Be genuinely useful; position Bright Stars as the local early-childhood expert. Highly shareable."
+    examples:
+      - "3 calm-down tricks for toddler tantrums"
+      - "Easy ways to build early reading at home"
+      - "Picky eater? Try this at dinner tonight"
+    platforms: [facebook, instagram]
+
+  - id: inside_classroom
+    name: "Inside Our Classrooms / What We're Learning"
+    purpose: "Show the curriculum in action and build trust. Visuals of activities & materials — not faces."
+    examples:
+      - "This week our preschoolers explored colors with a sensory bin"
+      - "How we make math playful for 4-year-olds"
+    platforms: [facebook, instagram]
+
+  - id: team_spotlight
+    name: "Meet the Team / Teacher Spotlight"
+    purpose: "Humanize the center, build trust, and double as employer branding."
+    examples:
+      - "Meet Ms. ___ — what she loves about teaching toddlers"
+      - "Why our teachers keep growing through professional development"
+    platforms: [facebook, instagram, linkedin]
+
+  - id: why_bright_stars
+    name: "Why Bright Stars / Trust Builders"
+    purpose: "Surface differentiators and social proof to move undecided parents."
+    examples:
+      - "What a Level 4 Colorado Shines rating means for your child"
+      - "We handle your CCCAP paperwork — here's how that helps"
+    platforms: [facebook, instagram]
+
+  - id: enrollment_cta
+    name: "Enrollment & Affordability"
+    purpose: "Drive tours and inquiries. Highlight open spots and funding (UPK / DPP / CCCAP)."
+    examples:
+      - "Now enrolling infants & toddlers — book a tour this week"
+      - "Did you know UPK can cover preschool hours? Ask us how"
+    platforms: [facebook, instagram]
+
+  - id: community_seasonal
+    name: "Community & Seasonal"
+    purpose: "Stay top-of-mind with timely, local, feel-good content."
+    examples:
+      - "Happy first day of summer from our Bright Stars family!"
+      - "Aurora parents: free weekend activities for little ones"
+    platforms: [facebook, instagram]
+
+  - id: hiring
+    name: "We're Hiring / Culture"
+    purpose: "Recruit early-childhood staff and show the workplace culture."
+    examples:
+      - "We're hiring a lead toddler teacher — come grow with us"
+      - "What it's like to work at a Level 4 center"
+    platforms: [linkedin, facebook]
+
+# ── Platform roles & posting cadence (organic) ────────────────────────────────
+platforms:
+  facebook:
+    role: "Primary enrollment + community channel. Local parent audience, reviews, events."
+    weekly_posts: 3
+    pillars: [parenting_tips, inside_classroom, why_bright_stars, enrollment_cta, community_seasonal, team_spotlight]
+    formats: [feed, photo, link]
+  instagram:
+    role: "Visual brand-building + reach. Reels for discovery, feed for trust."
+    weekly_posts: 3
+    pillars: [parenting_tips, inside_classroom, team_spotlight, why_bright_stars, enrollment_cta, community_seasonal]
+    formats: [feed, reel, carousel, story]
+  linkedin:
+    role: "Hiring + employer brand only. Low volume, high signal."
+    weekly_posts: 1
+    pillars: [hiring, team_spotlight]
+    formats: [text, image]
+
+# ── Hashtag banks (use a few, not a wall) ─────────────────────────────────────
+hashtags:
+  core: ["#BrightStarsChildcare", "#AuroraCO", "#AuroraColorado", "#DenverDaycare"]
+  topical:
+    parenting: ["#ParentingTips", "#EarlyLearning", "#ToddlerLife", "#PreschoolPrep", "#KindergartenReadiness"]
+    enrollment: ["#NowEnrolling", "#DaycareNearMe", "#PreschoolAurora", "#UPK", "#ChildcareColorado"]
+    hiring: ["#NowHiring", "#EarlyChildhoodEducation", "#TeachingJobs", "#ChildcareJobs", "#DenverJobs"]
+  guidance: "Facebook: 0–3 hashtags. Instagram: 5–12. LinkedIn: 2–4."
+
+# ── Reusable calls to action ──────────────────────────────────────────────────
+ctas:
+  - "Call (303) 369-8880 to book a tour."
+  - "Now enrolling — message us to check availability."
+  - "Visit brightstars.us to learn about our programs."
+  - "Ask us how UPK & DPP can lower your cost."
+  - "Hiring now — send us a message to apply."

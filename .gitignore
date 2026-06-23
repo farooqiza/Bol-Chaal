@@ -1,0 +1,18 @@
+# secrets — NEVER commit
+.env
+.env.*
+!.env.example
+*.token
+secrets/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# local generated artifacts that shouldn't be tracked
+content/**/drafts.local.*
+assets/generated/
