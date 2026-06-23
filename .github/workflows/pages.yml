@@ -35,13 +35,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Enables GitHub Pages (build type: GitHub Actions) on first run, so the
-      # repo owner doesn't have to toggle it in Settings → Pages by hand.
-      - name: Enable & configure GitHub Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
