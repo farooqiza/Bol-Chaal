@@ -1,0 +1,55 @@
+name: Generate content (monthly draft)
+
+# Drafts next month's content and opens a Pull Request for human review/approval.
+on:
+  workflow_dispatch:
+    inputs:
+      month:
+        description: "Month to generate (YYYY-MM, 'this', or 'next')"
+        required: false
+        default: "next"
+  schedule:
+    # 09:00 UTC on the 20th of each month — leaves time to review before the month starts
+    - cron: "0 9 20 * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate draft calendar
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BRIGHTSTARS_MODEL: ${{ vars.BRIGHTSTARS_MODEL }}
+          PYTHONPATH: src
+        run: python -m brightstars generate "${{ github.event.inputs.month || 'next' }}"
+
+      - name: Open review Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: content/**
+          branch: content/draft-${{ github.run_id }}
+          commit-message: "content: draft social calendar (${{ github.event.inputs.month || 'next' }})"
+          title: "Review: social content draft (${{ github.event.inputs.month || 'next' }})"
+          body: |
+            AI-drafted organic posts for **Bright Stars**, awaiting review.
+
+            **How to approve:**
+            1. Read `content/<month>/REVIEW.md` in this PR.
+            2. ⚠️ Check the consent/photo note on each post (see `docs/CHILD_SAFETY_POLICY.md`).
+            3. Edit `content/<month>/calendar.json` if you want changes, then either:
+               - run `python -m brightstars approve <month> --all` locally and push, or
+               - approve specific posts and push.
+            4. Merge this PR. The daily publish workflow posts approved posts on their dates.
